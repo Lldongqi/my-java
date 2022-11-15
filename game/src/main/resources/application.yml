@@ -1,0 +1,33 @@
+server:
+  port: 8083
+#spring相关配置
+spring:
+  application:
+    name: service-game
+  datasource:
+    url: jdbc:mysql://mysql.qa.huohua.cn:3306/se_game_factory?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: qa-dev
+    password: jaeg3SCQt0
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource #数据源操作类型
+  redis:
+    host: redis-qa3.redis.rds.aliyuncs.com
+    port: 6379
+    password: hxTjlWBYdK6UpAGF
+    database: 7
+    lettuce:
+      pool:
+        max-idle: 16
+        max-active: 32
+        min-idle: 8
+  mvc:
+    throw-exception-if-no-handler-found: true # 不存在的路径 抛出404 错误
+  web:
+    resources:
+      add-mappings: false
+# Logger Config
+logging:
+  level:
+    com.demo: debug
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml

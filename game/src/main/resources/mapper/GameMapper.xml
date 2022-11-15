@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.mapper.GameMapper">
+
+    <resultMap type="com.demo.entity.Game" id="GameMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="sourceGameVersionId" column="source_game_version_id" jdbcType="INTEGER"/>
+        <result property="customTemplateVersionId" column="custom_template_version_id" jdbcType="INTEGER"/>
+        <result property="taskId" column="task_id" jdbcType="INTEGER"/>
+        <result property="updatedUserName" column="updated_user_name" jdbcType="VARCHAR"/>
+        <result property="updatedUserId" column="updated_user_id" jdbcType="INTEGER"/>
+        <result property="createdUserName" column="created_user_name" jdbcType="VARCHAR"/>
+        <result property="createdUserId" column="created_user_id" jdbcType="INTEGER"/>
+        <result property="isDel" column="is_del" jdbcType="INTEGER"/>
+        <result property="stableVersionId" column="stable_version_id" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="modifiedTime" column="modified_time" jdbcType="TIMESTAMP"/>
+        <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
+        <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
+        <result property="canCopy" column="can_copy" jdbcType="INTEGER"/>
+        <result property="canSaveTemplate" column="can_save_template" jdbcType="INTEGER"/>
+        <result property="hasTemplate" column="has_template" jdbcType="INTEGER"/>
+        <result property="editorType" column="editor_type" jdbcType="INTEGER"/>
+    </resultMap>
+
+<!--    嵌套查询-->
+    <resultMap id="GameVersionVo" type="com.demo.entity.Game">
+        <collection property="gameVersionVo" column="id" select="getVersion" autoMapping="true">
+        </collection>
+    </resultMap>
+    <select id="queryById1" resultMap="GameVersionVo">
+        select
+         *
+        from game
+        where id = #{id}
+    </select>
+
+    <select id="getVersion" resultType="com.demo.entity.GameVersion">
+        select * from game_version where game_id = #{id}
+    </select>
+
+
+<!--    嵌套结果查询-->
+    <resultMap id="gameResult" type="com.demo.entity.Game">
+        <id property="id" column="gid" />
+        <result property="name" column="gname"/>
+<!--        <association property="gameVersionVo" javaType="com.demo.entity.GameVersion">-->
+<!--            <result property="name" column="gameVersionName"/>-->
+<!--        </association>-->
+<!--        <collection property="gameVersionVo" ofType="com.demo.entity.GameVersion">-->
+<!--            <result property="gameId" column="gameid"/>-->
+<!--            <result property="name" column="gameVersionName"/>-->
+<!--        </collection>-->
+    </resultMap>
+    <select id="queryById" resultMap="gameResult">
+        SELECT
+            g.id as gid,
+            g.name as gname,
+            gv.game_id as gameid,
+            gv.name as gameVersionName
+        FROM
+            game g
+                LEFT JOIN game_version gv ON g.id = gv.game_id
+        WHERE g.id = #{id}
+    </select>
+    
+
+
+
+
+</mapper>
+
