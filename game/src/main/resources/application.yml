@@ -5,15 +5,15 @@ spring:
   application:
     name: service-game
   datasource:
-    url: jdbc:mysql://mysql.qa.huohua.cn:3306/se_game_factory?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://localhost:3306/se_game_factory?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: qa-dev
     password: jaeg3SCQt0
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource #数据源操作类型
   redis:
-    host: redis-qa3.redis.rds.aliyuncs.com
+    host: localhost
     port: 6379
-    password: hxTjlWBYdK6UpAGF
+    password:
     database: 7
     lettuce:
       pool:
