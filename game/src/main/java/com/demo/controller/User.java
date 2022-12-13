@@ -1,16 +1,16 @@
 package com.demo.controller;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class User {
 
     String name;
+    Integer salary;
     Integer age;
-
-    public User(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
+    String sex;
+    String city;
 }

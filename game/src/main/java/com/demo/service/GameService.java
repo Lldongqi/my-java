@@ -8,6 +8,9 @@ import com.demo.mapper.GameMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Vector;
+
 /**
  * 游戏(Game)表服务接口
  *
